@@ -12,13 +12,11 @@ void main() {
   // insert(test, 5, 9);
   // print(insertionSort(you));
   // print(factorial(5));
-  // print(isPalindrome('rottmor'));
-  // print(power(2, -1));
+  // print(recursiveFactorial(-2));
+  // print(isPalindrome2('rottmor'));
+  // print(isPalindrome('adetytybteda'));
+  // print(power2(2, -1));
+  print(power(2, -1));
   // merge(you, 2, 4, 8);
-  solveHanoi(
-    numOfDisks: 64,
-    fromPeg: 'A',
-    toPeg: 'B',
-    idPeg: 'C',
-  );
+  // solveHanoi(2, 'A', 'B', 'C');
 }
