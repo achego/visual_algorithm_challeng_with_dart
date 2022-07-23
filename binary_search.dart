@@ -2,12 +2,16 @@
 /*
 8. RECURSIVE FACTORIAL
   why: read about resursion to understand
-11. SOLVE HANOI RECURSIVELY
-  why: read the text before it
 12. IMPLEMENT MERGE SORT
   why: read the.. apply divide and conquer
 13. IMPLEMENT MERGE
   why: dont understand requiremnt: repeadedly copy lowest untaken? and once one is added
+16 STORE A GRAPH
+  16 a STORE ADJACENT GRAPH
+  16 b STORE ADJACENT LIST
+
+
+// 17 IMPLEMENT BREADTH-FIRST SEARCH
  */
 
 // 1
@@ -149,12 +153,28 @@ int factorial(int number) {
 
 // 8. RECURSIVE FACTORIAL
 int recursiveFactorial(int number) {
-  int result = 1;
-  return result;
+  if (number <= 1) {
+    return 1;
+  } else {
+    return number * recursiveFactorial(number - 1);
+  }
 }
 
 // 9. IS A STRING A PALINDROME
+// Recursive
 bool isPalindrome(String text) {
+  if (text.length <= 1) {
+    return true;
+  }
+  if (text[0] != text[text.length - 1]) {
+    return false;
+  }
+  print(text.substring(1, text.length - 1));
+  return isPalindrome(text.substring(1, text.length - 1));
+}
+
+// Linear
+bool isPalindrome2(String text) {
   bool isPalindrome = false;
 
   int textL = text.length;
@@ -175,7 +195,26 @@ bool isPalindrome(String text) {
 }
 
 // 10 COMPUTING POWER OF NUMBERS
-double power(double value, int power) {
+// recursive
+double power(double value, int pow) {
+  if (pow == 0) {
+    return 1;
+  }
+  if (pow % 2 == 0 && !pow.isNegative) {
+    return power(value, pow ~/ 2) * power(value, pow ~/ 2);
+  }
+  if (pow % 2 == 1 && !pow.isNegative) {
+    return value * power(value, pow - 1);
+  }
+  if (pow.isNegative) {
+    double val = power(value, -pow);
+    return 1 / val;
+  }
+  return 0;
+}
+
+// iterative
+double power2(double value, int power) {
   if (power == 0) {
     return 1;
   } else {
@@ -193,34 +232,16 @@ double power(double value, int power) {
 
 // 11. SOLVE HANOI RECURSIVELY
 int solveCount = 0;
-solveHanoi({
-  required int numOfDisks,
-  required String fromPeg,
-  required String toPeg,
-  String idPeg = 'Z',
-}) {
+solveHanoi(int numOfDisks, String fromPeg, String toPeg, String idPeg) {
   solveCount++;
   int n = numOfDisks;
   if (numOfDisks == 1) {
     print('Moved disk $numOfDisks from $fromPeg to $toPeg');
     return;
   }
-  solveHanoi(
-    numOfDisks: n - 1,
-    fromPeg: fromPeg,
-    toPeg: idPeg,
-    idPeg: toPeg,
-  );
-
+  solveHanoi(numOfDisks - 1, fromPeg, idPeg, toPeg);
   print('Moved disk $n from $fromPeg to $toPeg');
-
-  solveHanoi(
-    numOfDisks: numOfDisks - 1,
-    fromPeg: idPeg,
-    toPeg: toPeg,
-    idPeg: fromPeg,
-  );
-
+  solveHanoi(numOfDisks - 1, idPeg, toPeg, fromPeg);
   print('Solved Hanoi in $solveCount moves');
 }
 
